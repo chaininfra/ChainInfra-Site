@@ -1,0 +1,202 @@
+/* 
+ * Next.js Global Styles
+ * This file combines Tailwind CSS with your original React app styles
+ * - Tailwind CSS utilities and component system
+ * - Original index.css content (if found)
+ * - Original App.css content (if found)
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* === Original index.css === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cybersecurity Blog Design System - Dark theme inspired by jswzl.io 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Dark cybersecurity theme */
+    --background: 230 25% 8%;
+    --foreground: 210 40% 98%;
+
+    --card: 230 20% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 20% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 267 83% 58%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 230 15% 18%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 230 15% 15%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 315 100% 70%;
+    --accent-foreground: 230 25% 8%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 230 15% 20%;
+    --input: 230 15% 20%;
+    --ring: 267 83% 58%;
+
+    /* Cybersecurity specific colors */
+    --cyber-blue: 200 100% 70%;
+    --cyber-pink: 315 100% 70%;
+    --cyber-green: 120 100% 70%;
+    --cyber-purple: 270 100% 70%;
+    --code-bg: 230 20% 10%;
+    --code-border: 230 15% 25%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(267 83% 58%), hsl(230 25% 8%));
+    --gradient-hero: linear-gradient(135deg, hsl(230 25% 8%) 0%, hsl(267 30% 15%) 50%, hsl(230 25% 8%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(230 20% 12%), hsl(230 15% 18%));
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  /* Light mode (cybersecurity blogs are typically dark, but keeping for flexibility) */
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 230 25% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 25% 8%;
+    --primary: 267 83% 48%;
+    --accent: 315 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono;
+    background: var(--gradient-hero);
+    background-attachment: fixed;
+  }
+
+  /* Code styling for blog posts */
+  pre {
+    @apply bg-[hsl(var(--code-bg))] border border-[hsl(var(--code-border))] rounded-lg p-4 overflow-x-auto;
+  }
+
+  code {
+    @apply text-[hsl(var(--cyber-blue))] bg-[hsl(var(--code-bg))] px-1 py-0.5 rounded text-sm;
+  }
+
+  /* Cybersecurity accent animations */
+  .glow-text {
+    text-shadow: 0 0 10px hsl(var(--cyber-blue) / 0.5);
+  }
+
+  .cyber-border {
+    border: 1px solid hsl(var(--cyber-blue) / 0.3);
+    box-shadow: 0 0 20px hsl(var(--cyber-blue) / 0.1);
+  }
+
+  /* Responsive text utilities */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+  }
+
+  /* High zoom/large screen optimizations */
+  @media (min-width: 1920px) {
+    .container {
+      max-width: 1600px;
+    }
+  }
+
+  /* Ultra wide screen optimizations */
+  @media (min-width: 2560px) {
+    .container {
+      max-width: 2000px;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "producer_account_name": "chaininfra",
+  "org": {
+    "candidate_name": "ChainInfra Testnet",
+    "website": "https://chaininfra.net",
+    "email": "info@chaininfra.net",
+    "ownership_disclosure": "https://chaininfra.net/block-producer",
+    "company": "Leenoh Financing LLC",
+    "owner": "Luc",
+    "branding": {
+      "logo_256": "https://chaininfra.net/logo.png",
+      "logo_1024": "https://chaininfra.net/logo.png",
+      "logo_svg": "https://chaininfra.net/logo.svg"
+    },
+    "location": {
+      "name": "Minnesota",
+      "country": "US",
+      "latitude": 44.9866,
+      "longitude": -93.2581
+    },
+    "social": {
+      "twitter": "lilreom",
+      "telegram": "chaininfra",
+      "github": "lucm9/ChainInfra",
+      "webauth": "chaininfra"
+    }
+  },
+  "nodes": [
+    {
+      "location": {
+        "name": "Minnesota",
+        "country": "US",
+        "latitude": 44.9866,
+        "longitude": -93.2581
+      },
+      "api_endpoint": "https://testnet-api.chaininfra.net",
+      "ssl_endpoint": "https://testnet-api.chaininfra.net",
+      "node_type": "query",
+      "full": false,
+      "features": ["chain-api"]
+    },
+    {
+      "location": {
+        "name": "Minnesota",
+        "country": "US",
+        "latitude": 44.9866,
+        "longitude": -93.2581
+      },
+      "p2p_endpoint": "p2p-testnet.chaininfra.net:9876",
+      "node_type": "seed",
+      "full": false
+    },
+    {
+      "location": {
+        "name": "Minnesota",
+        "country": "US",
+        "latitude": 44.9866,
+        "longitude": -93.2581
+      },
+      "node_type": "producer"
+    }
+  ]
+}

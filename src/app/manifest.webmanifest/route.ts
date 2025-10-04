@@ -1,0 +1,26 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET() {
+  const manifest = {
+    name: 'ChainInfra - Metal Blockchain Validator',
+    short_name: 'ChainInfra',
+    description: 'Professional blockchain infrastructure services',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#0a0f1c',
+    theme_color: '#00d4ff',
+    icons: [
+      {
+        src: '/favicon.ico',
+        sizes: '64x64',
+        type: 'image/x-icon'
+      }
+    ]
+  };
+
+  return NextResponse.json(manifest, {
+    headers: {
+      'Content-Type': 'application/manifest+json',
+    },
+  });
+}
