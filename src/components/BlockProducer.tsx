@@ -2,7 +2,7 @@
 
 import EndpointStatusCard from '@/components/EndpointStatusCard';
 import { Button } from '@/components/ui/button';
-import { Mail, Twitter, Telegram } from 'lucide-react';
+import { Mail, Twitter, Send } from 'lucide-react'; // 🔹 fixed import (Send instead of Telegram)
 
 export default function BlockProducer() {
   return (
@@ -31,7 +31,9 @@ export default function BlockProducer() {
             </p>
           </div>
           <div className="bg-gradient-card p-6 rounded-xl cyber-border max-w-md">
-            <h3 className="text-2xl font-semibold mb-3 text-cyber-blue">XPR Block Production Transparency</h3>
+            <h3 className="text-2xl font-semibold mb-3 text-cyber-blue">
+              XPR Block Production Transparency
+            </h3>
             <p className="text-muted-foreground">
               Real-time node data, production metrics, and network statistics for public oversight.
             </p>
@@ -44,7 +46,9 @@ export default function BlockProducer() {
             </p>
           </div>
           <div className="bg-gradient-card p-6 rounded-xl cyber-border max-w-md">
-            <h3 className="text-2xl font-semibold mb-3 text-cyber-pink">XPR Governance Participation</h3>
+            <h3 className="text-2xl font-semibold mb-3 text-cyber-pink">
+              XPR Governance Participation
+            </h3>
             <p className="text-muted-foreground">
               Active role in XPR proposals, technical upgrades, and ecosystem development.
             </p>
@@ -84,7 +88,7 @@ export default function BlockProducer() {
       </section>
 
       {/* --- Vote for Us --- */}
-      <section className="mb-32">
+      <section className="mb-32" id="vote">
         <h2 className="text-4xl font-bold mb-8">Vote for Us</h2>
         <p className="text-muted-foreground mb-12">
           Support ChainInfra as your XPR Network Block Producer.
@@ -100,7 +104,11 @@ export default function BlockProducer() {
             asChild
             className="bg-cyber-green hover:bg-cyber-green/90 text-black px-8 py-2 rounded-md font-semibold"
           >
-            <a href="https://webauth.com/vote?producer=chaininfra" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://webauth.com/vote?producer=chaininfra"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Vote Now
             </a>
           </Button>
@@ -139,7 +147,7 @@ export default function BlockProducer() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-gradient-card px-5 py-3 rounded-xl cyber-border hover:scale-105 transition-transform"
           >
-            <Telegram className="h-5 w-5 text-cyber-purple" />
+            <Send className="h-5 w-5 text-cyber-purple" /> {/* replaced Telegram with Send */}
             @chaininfra
           </a>
         </div>
