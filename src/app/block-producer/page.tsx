@@ -69,7 +69,7 @@ export default function BlockProducerPage() {
             <EndpointStatusCard
               name="Mainnet BP"
               type="Mainnet Block Producer"
-              endpoint="https://mainnet-api.chaininfra.net"
+              endpoint="https://api.chaininfra.net"
               healthPath="/v1/chain/get_info"
             />
             <EndpointStatusCard
