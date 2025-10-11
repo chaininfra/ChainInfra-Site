@@ -8,10 +8,11 @@ interface EndpointStatusCardProps {
   name: string;
   type: string;
   endpoint: string;
+  healthPath?: string;   // ✅ Added optional support for /health or /v1/chain/get_info
   version?: string;
 }
 
-export default function EndpointStatusCard({ name, type, endpoint, version }: EndpointStatusCardProps) {
+export default function EndpointStatusCard({ name, type, endpoint, healthPath, version }: EndpointStatusCardProps) {
   const [status, setStatus] = useState<'Online' | 'Offline' | 'Unknown'>('Unknown');
   const [responseTime, setResponseTime] = useState<number | null>(null);
   const [lastChecked, setLastChecked] = useState<string | null>(null);
@@ -22,7 +23,9 @@ export default function EndpointStatusCard({ name, type, endpoint, version }: En
     const start = performance.now();
 
     try {
-      const res = await fetch(endpoint, { method: 'GET', cache: 'no-store' });
+      // ✅ Append healthPath if defined
+      const url = healthPath ? `${endpoint}${healthPath}` : endpoint;
+      const res = await fetch(url, { method: 'GET', cache: 'no-store' });
       const elapsed = Math.round(performance.now() - start);
 
       if (res.ok) {
@@ -45,7 +48,7 @@ export default function EndpointStatusCard({ name, type, endpoint, version }: En
   }, []);
 
   return (
-    <div className="bg-gradient-card p-6 rounded-xl cyber-border flex flex-col justify-between w-full max-w-md min-h-[250px] shadow-md hover:shadow-lg hover:shadow-cyber-green/10 transition-all duration-500">
+    <div className="bg-gradient-card p-6 rounded-xl cyber-border flex flex-col justify-between w-full max-w-md min-h-[260px] shadow-md hover:shadow-lg hover:shadow-cyber-green/10 transition-all duration-500">
       <div>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -88,7 +91,7 @@ export default function EndpointStatusCard({ name, type, endpoint, version }: En
             </p>
           )}
 
-          {/* Endpoint (with proper wrapping) */}
+          {/* Endpoint (with word wrap fix) */}
           <p className="text-sm font-mono text-cyber-green break-all whitespace-normal mt-2">
             <span className="text-muted-foreground">Endpoint:</span>{' '}
             <a
