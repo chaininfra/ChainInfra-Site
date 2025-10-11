@@ -1,19 +1,17 @@
-import { Metadata } from 'next';
-import { Shield, Users, CheckCircle, Activity, MapPin, Mail, Award, ExternalLink } from "lucide-react";
+'use client';
+
+import { Shield, Users, CheckCircle, ExternalLink, MapPin, Mail, Award, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import FadeOnScroll from "@/components/FadeOnScroll";
-import EndpointStatusCard from '@/components/EndpointStatusCard';
+import { useEffect } from "react";
+import { validatorConfig } from '@/lib/validator-config';
 import Image from 'next/image';
 
-const validatorConfig = {
-  contactEmails: { primary: 'contact@chaininfra.net' },
-  socialLinks: {
-    telegram: 'https://t.me/chaininfra',
-    twitter: 'https://twitter.com/lilreom'
-  }
-};
+const BlockProducer = () => {
+  useEffect(() => {
+    document.title = "Block Producer - ChainInfra | XPR Network";
+  }, []);
 
-export default function BlockProducerPage() {
   const operatorInfo = {
     name: "ChainInfra",
     location: "Minnesota, US",
@@ -134,39 +132,6 @@ export default function BlockProducerPage() {
           </div>
         </div>
 
-        {/* --- Live Endpoint Status Cards --- */}
-        <div className="mb-32">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 glow-text">
-              Live Endpoint Status
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Real-time monitoring of ChainInfra's XPR Network and AtomicAssets infrastructure.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <EndpointStatusCard
-              name="Mainnet BP"
-              type="Mainnet Block Producer"
-              endpoint="https://api.chaininfra.net"
-              healthPath="/v1/chain/get_info"
-            />
-            <EndpointStatusCard
-              name="Testnet BP"
-              type="Testnet Block Producer"
-              endpoint="https://testnet-api.chaininfra.net"
-              healthPath="/v1/chain/get_info"
-            />
-            <EndpointStatusCard
-              name="Mainnet AtomicAssets API"
-              type="Mainnet AtomicAssets API"
-              endpoint="https://xpr-atomic.chaininfra.net"
-              healthPath="/health"
-            />
-          </div>
-        </div>
-
         {/* --- Vote for Us --- */}
         <div className="mb-32">
           <div className="text-center mb-16">
@@ -272,4 +237,6 @@ export default function BlockProducerPage() {
       </div>
     </div>
   );
-}
+};
+
+export default BlockProducer;
