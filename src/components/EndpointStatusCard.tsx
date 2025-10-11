@@ -1,110 +1,121 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Globe, CheckCircle, XCircle, RefreshCcw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { RefreshCw, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 
-interface Props {
+interface EndpointStatusCardProps {
   name: string;
   type: string;
   endpoint: string;
-  healthPath?: string;
+  version?: string;
 }
 
-const EndpointStatusCard = ({ name, type, endpoint, healthPath = '/health' }: Props) => {
-  const [status, setStatus] = useState<'online' | 'offline'>('offline');
+export default function EndpointStatusCard({ name, type, endpoint, version }: EndpointStatusCardProps) {
+  const [status, setStatus] = useState<'Online' | 'Offline' | 'Unknown'>('Unknown');
   const [responseTime, setResponseTime] = useState<number | null>(null);
-  const [details, setDetails] = useState<any>(null);
-  const [lastChecked, setLastChecked] = useState<string>('');
+  const [lastChecked, setLastChecked] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchStatus = async () => {
-    const start = Date.now();
+  const checkEndpoint = async () => {
+    setLoading(true);
+    const start = performance.now();
+
     try {
-      const res = await fetch(endpoint + healthPath, { cache: 'no-store' });
-      const duration = Date.now() - start;
+      const res = await fetch(endpoint, { method: 'GET', cache: 'no-store' });
+      const elapsed = Math.round(performance.now() - start);
 
-      if (!res.ok) throw new Error('Offline');
-      const data = await res.json();
-
-      setResponseTime(duration);
-      setStatus('online');
-      setDetails(data.data || data);
-      setLastChecked(new Date().toLocaleString());
+      if (res.ok) {
+        setStatus('Online');
+        setResponseTime(elapsed);
+      } else {
+        setStatus('Offline');
+      }
     } catch {
-      setStatus('offline');
-      setResponseTime(null);
-      setDetails(null);
+      setStatus('Offline');
+    } finally {
+      setLoading(false);
       setLastChecked(new Date().toLocaleString());
     }
   };
 
   useEffect(() => {
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 30000);
-    return () => clearInterval(interval);
+    checkEndpoint();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Card className="bg-background/50 border border-border/50 hover:border-cyber-green/50 transition-all duration-300">
-      <CardContent className="p-6">
-        <div className="flex justify-between items-center mb-4">
+    <div className="bg-gradient-card p-6 rounded-xl cyber-border flex flex-col justify-between w-full max-w-md min-h-[250px] shadow-md hover:shadow-lg hover:shadow-cyber-green/10 transition-all duration-500">
+      <div>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-2xl font-bold text-foreground">{name}</h3>
+            <h3 className="text-xl font-bold text-white">{name}</h3>
             <p className="text-sm text-muted-foreground">{type}</p>
           </div>
-          {status === 'online' ? (
-            <CheckCircle className="text-cyber-green w-6 h-6" />
-          ) : (
-            <XCircle className="text-red-500 w-6 h-6" />
+          {status === 'Online' && (
+            <CheckCircle className="h-6 w-6 text-green-500 flex-shrink-0" />
           )}
         </div>
 
-        <div className="space-y-2 text-sm font-mono">
+        {/* Status Info */}
+        <div className="space-y-2 text-sm">
           <p>
             <span className="text-muted-foreground">Status:</span>{' '}
-            <span className={status === 'online' ? 'text-cyber-green' : 'text-red-500'}>
-              {status === 'online' ? 'Online' : 'Offline'}
+            <span className={status === 'Online' ? 'text-green-500' : 'text-red-500'}>
+              {status}
             </span>
           </p>
+
           <p>
             <span className="text-muted-foreground">Response Time:</span>{' '}
-            {responseTime ? `${responseTime}ms` : 'N/A'}
+            <span className="text-cyber-green">
+              {responseTime !== null ? `${responseTime}ms` : '—'}
+            </span>
           </p>
-          {details?.head_block && (
+
+          {version && (
             <p>
-              <span className="text-muted-foreground">Head Block:</span> {details.head_block}
+              <span className="text-muted-foreground">Version:</span>{' '}
+              <span className="text-cyber-purple">{version}</span>
             </p>
           )}
-          {details?.version && (
+
+          {lastChecked && (
             <p>
-              <span className="text-muted-foreground">Version:</span> {details.version}
+              <span className="text-muted-foreground">Last Checked:</span>{' '}
+              <span className="text-cyber-blue">{lastChecked}</span>
             </p>
           )}
-          <p>
-            <span className="text-muted-foreground">Last Checked:</span> {lastChecked}
-          </p>
-          <p className="truncate">
+
+          {/* Endpoint (with proper wrapping) */}
+          <p className="text-sm font-mono text-cyber-green break-all whitespace-normal mt-2">
             <span className="text-muted-foreground">Endpoint:</span>{' '}
             <a
               href={endpoint}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyber-green hover:text-cyber-blue"
+              className="text-cyber-green hover:text-cyber-blue transition-colors underline-offset-2 hover:underline"
             >
               {endpoint}
             </a>
           </p>
         </div>
+      </div>
 
-        <div className="flex justify-end mt-4">
-          <Button size="sm" variant="outline" onClick={fetchStatus} className="flex items-center gap-2">
-            <RefreshCcw className="w-4 h-4" /> Refresh
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+      {/* Refresh Button */}
+      <div className="mt-6 flex justify-start">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={checkEndpoint}
+          disabled={loading}
+          className="flex items-center gap-2 border-cyber-green text-cyber-green hover:bg-cyber-green/10"
+        >
+          <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
+          {loading ? 'Checking...' : 'Refresh'}
+        </Button>
+      </div>
+    </div>
   );
-};
-
-export default EndpointStatusCard;
+}
