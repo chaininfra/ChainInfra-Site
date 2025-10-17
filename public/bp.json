@@ -58,6 +58,17 @@
         "longitude": -93.2581
       },
       "node_type": "producer"
+    },
+    {
+      "location": {
+        "name": "Minnesota",
+        "country": "US",
+        "latitude": 44.9866,
+        "longitude": -93.2581
+      },
+      "node_type": "query",
+      "features": ["atomic-assets-api"],
+      "ssl_endpoint": "https://xpr-atomic.chaininfra.net"
     }
   ]
 }
